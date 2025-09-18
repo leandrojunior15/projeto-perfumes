@@ -7,14 +7,12 @@
   font-style: normal;
 }
 
+
 *{
     color: #2D3748;
     font-family: 'Montserrat', sans-serif;
 }
 
-*::before, *::after {
-  box-sizing: border-box;
-}
 
 body { 
     background-color: #F4F4F4;
@@ -127,6 +125,7 @@ todo css para a parte do carrinho
         margin-top: 30px; /* Adiciona um espaço acima */
         right: 0;         /* Zera propriedades antigas */
         top: 0;
+        box-sizing: border-box; 
     }
 }
 
