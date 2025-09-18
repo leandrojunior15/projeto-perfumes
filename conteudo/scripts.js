@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     configurarEventos();
 });
 
+
 function carregarProdutos() {
     const listaProdutosDiv = document.getElementById('lista-produtos');
     listaProdutosDiv.innerHTML = ''; // Limpa a lista antes de adicionar
@@ -20,6 +21,7 @@ function carregarProdutos() {
     });
 }
 
+
 const produtos = [
     {
         id: 1,
@@ -34,7 +36,7 @@ const produtos = [
         nome: 'O Boticário Malbec Gold',
         marca: 'O Boticário',
         preco: 179.90,
-        imagem: 'imagens/boticario_malbec.jpg',
+        imagem: "imagens/boticario_malbec.jpg",
         estoque: 3
     },
     {
@@ -44,11 +46,21 @@ const produtos = [
         preco: 215.00,
         imagem: 'imagens/natura_essencial.jpg',
         estoque: 2
+    },
+    {
+        id: 4,
+        nome: 'Natura Deo Parfum Una Senses Feminino - 75ml',
+        marca: 'Natura',
+        preco: 200.00,
+        imagem: 'imagens/natura_deo_parfum_una.jpg',
+        estoque: 3
     }
        
 ];
 
+
 let carrinho = [];
+
 
 function adicionarAoCarrinho(idProduto) {
     const produtoExistente = carrinho.find(item => item.id === idProduto);
@@ -65,6 +77,7 @@ function adicionarAoCarrinho(idProduto) {
     atualizarCarrinho();
 }
 
+
 function atualizarCarrinho() {
     const itensCarrinhoDiv = document.getElementById('itens-carrinho');
     const valorTotalSpan = document.getElementById('valor-total');
@@ -79,11 +92,18 @@ function atualizarCarrinho() {
     itensCarrinhoDiv.innerHTML = '';
     carrinho.forEach(item => {
         const itemDiv = document.createElement('div');
+        // NOVO: Adicionamos uma classe para estilizar melhor o item do carrinho
         itemDiv.className = 'item-no-carrinho';
+        
+        // ATUALIZAÇÃO AQUI: Adicionamos um botão de remover
         itemDiv.innerHTML = `
-            <span>${item.quantidade}x ${item.nome}</span>
-            <span>R$ ${(item.preco * item.quantidade).toFixed(2)}</span>
+            <div class="item-info">
+                <span>${item.quantidade}x ${item.nome}</span>
+                <span>R$ ${(item.preco * item.quantidade).toFixed(2)}</span>
+            </div>
+            <button class="btn-remover" onclick="removerDoCarrinho(${item.id})">Remover</button>
         `;
+
         itensCarrinhoDiv.appendChild(itemDiv);
         total += item.preco * item.quantidade;
     });
@@ -91,10 +111,35 @@ function atualizarCarrinho() {
     valorTotalSpan.textContent = total.toFixed(2);
 }
 
+
+function removerDoCarrinho(idProduto) {
+    // 1. Encontra o índice do produto no array do carrinho
+    const indiceProduto = carrinho.findIndex(item => item.id === idProduto);
+
+    // Se o produto não for encontrado, não faz nada
+    if (indiceProduto === -1) {
+        return;
+    }
+
+    // 2. Diminui a quantidade
+    carrinho[indiceProduto].quantidade--;
+
+    // 3. Se a quantidade for 0, remove o item do array
+    if (carrinho[indiceProduto].quantidade === 0) {
+        // O método splice remove o item do array
+        carrinho.splice(indiceProduto, 1);
+    }
+    
+    // 4. Atualiza a exibição do carrinho
+    atualizarCarrinho();
+}
+
+
 function configurarEventos() {
     const btnFinalizar = document.getElementById('finalizar-pedido');
     btnFinalizar.addEventListener('click', enviarMensagemWhatsApp);
 }
+
 
 function enviarMensagemWhatsApp() {
     if (carrinho.length === 0) {

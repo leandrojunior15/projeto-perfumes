@@ -12,6 +12,10 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+*::before, *::after {
+  box-sizing: border-box;
+}
+
 body { 
     background-color: #F4F4F4;
 }
@@ -24,27 +28,31 @@ h1, h2{
 p {
     font-family: 'Nunito-sans', sans-serif;
     font-weight: 400; 
-    width: 550px;
+    
 }
 
 /*
 CSS da parte de exibição dos produtos
 */
-.produtos-container { 
-    display: flex; 
-    flex-wrap: wrap; 
-    gap: 20px; 
+.produtos-container {
+    display: flex; /* Ativa o Flexbox */
+    flex-wrap: wrap; /* Permite que os itens quebrem para a linha de baixo */
+    gap: 20px; /* Espaçamento entre os cards */
+    justify-content: center; /* Centraliza os cards no container */
 }
 
-.produto-card { 
+.produto-card {
     border: 1px solid #ddd;
-    padding: 15px; 
-    text-align: center; 
-    width: 200px; 
+    padding: 15px;
+    text-align: center;
+    width: 200px;
+    /* Em vez de uma largura fixa, damos uma base flexível */
+    flex-basis: 200px; /* Base de largura para cada card */
+    flex-grow: 1; /* Permite que o card cresça se houver espaço sobrando */
 }
 
 .produto-card img { 
-    max-width: 100%; height: auto; 
+    max-width: 200px; height: auto; 
 }
 
 /* 
@@ -58,14 +66,88 @@ todo css para a parte do carrinho
     cursor: pointer; 
     width: 100%; 
     margin-top: 10px; 
+    font-size: 15px;
 }
+
+.btn-adicionar:hover{
+    background-color: rgb(11, 192, 11);
+}
+
+.item-no-carrinho {
+    display: flex;
+    justify-content: space-between; /* Alinha o nome à esquerda e o botão à direita */
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column; /* Coloca o nome em cima do preço */
+}
+
+.btn-remover {
+    background-color: #ff4d4d; /* Um vermelho para indicar remoção */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.btn-remover:hover {
+    background-color: #cc0000;
+}
+
 
 .carrinho { 
     position: fixed; 
     right: 20px; 
     top: 20px; 
-    width: 150px; 
+    width: 200px; 
     background: #f9f9f9; 
     padding: 20px; 
     border: 1px solid #ccc; 
+}
+
+/* Para telas com largura máxima de 768px (tablets e celulares) */
+@media (max-width: 1100px) {
+    
+    main {
+        /* Reduz o espaçamento lateral em telas menores */
+        padding: 0 15px;
+    }
+
+    .carrinho {
+        /* Em vez de fixo na lateral, fazemos ocupar a largura toda em baixo ou em cima */
+        position: static; /* Remove a posição fixa */
+        width: 100%;      /* Ocupa toda a largura */
+        margin-top: 30px; /* Adiciona um espaço acima */
+        right: 0;         /* Zera propriedades antigas */
+        top: 0;
+    }
+}
+
+
+/* Para telas com largura máxima de 480px (celulares menores) */
+@media (max-width: 480px) {
+    .produtos-container {
+        /* Força os itens a ficarem um embaixo do outro */
+        flex-direction: column;
+    }
+    
+    .produto-card {
+        /* Garante que o card ocupe uma largura agradável */
+        width: 100%;
+        max-width: 200px; /* Evita que fique largo demais */
+        margin: 0 auto; /* Centraliza o card */
+    }
+
+    h1 {
+        font-size: 24px; /* Diminui um pouco o tamanho do título principal */
+    }
+
+    
 }
