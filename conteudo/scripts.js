@@ -147,7 +147,7 @@ function enviarMensagemWhatsApp() {
         return;
     }
 
-    const numeroTelefone = '5596000000000'; // <<<<<<< COLOQUE O NÚMERO DA SUA MÃE AQUI (com código do país e DDD)
+    const numeroTelefone = '5596991631429'; // <<<<<<< COLOQUE O NÚMERO DA SUA MÃE AQUI (com código do país e DDD)
     let mensagem = 'Olá! Gostaria de fazer o seguinte pedido:\n\n';
     let totalPedido = 0;
 
