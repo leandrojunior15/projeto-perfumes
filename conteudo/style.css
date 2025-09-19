@@ -7,7 +7,7 @@
   font-style: normal;
 }
 
-
+/* Configurações globais */
 *{
     color: #2D3748;
     font-family: 'Montserrat', sans-serif;
@@ -26,12 +26,9 @@ h1, h2{
 p {
     font-family: 'Nunito-sans', sans-serif;
     font-weight: 400; 
-    
 }
 
-/*
-CSS da parte de exibição dos produtos
-*/
+/* CSS da parte de exibição dos produtos */
 .produtos-container {
     display: flex; /* Ativa o Flexbox */
     flex-wrap: wrap; /* Permite que os itens quebrem para a linha de baixo */
@@ -40,7 +37,6 @@ CSS da parte de exibição dos produtos
 }
 
 .produto-card {
-   
     border: 1px solid #ddd;
     padding: 15px;
     text-align: center;
@@ -54,9 +50,11 @@ CSS da parte de exibição dos produtos
     max-width: 200px; height: 200px; 
 }
 
-/* 
-todo css para a parte do carrinho 
-*/
+.produto-card p {
+    font-weight: 540;
+}
+
+/* CSS da parte do botao de adicionar produto e botao whatsapp */
 .btn-adicionar, .btn-whatsapp { 
     background-color: #25D366; 
     color: white; 
@@ -72,6 +70,7 @@ todo css para a parte do carrinho
     background-color: rgb(11, 192, 11);
 }
 
+/* css do botao filtros */
 .filtros {
   margin-bottom: 20px;
   display: flex;
@@ -88,7 +87,7 @@ todo css para a parte do carrinho
   font-weight: 500;
 }
 
-/* Estilo do botão quando ele está ATIVO */
+/* Estilo do botão filtros quando ele está ATIVO */
 .btn-filtro.ativo {
   background-color: #2D3748; /* Usando uma cor escura da nossa paleta */
   color: white;
@@ -103,21 +102,7 @@ todo css para a parte do carrinho
   background-color: #1C2636;
 }
 
-
-.item-no-carrinho {
-    display: flex;
-    justify-content: space-between; /* Alinha o nome à esquerda e o botão à direita */
-    align-items: center;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-}
-
-.item-info {
-    display: flex;
-    flex-direction: column; /* Coloca o nome em cima do preço */
-}
-
+/* css do botao remover */
 .btn-remover {
     background-color: #ff4d4d; /* Um vermelho para indicar remoção */
     color: white;
@@ -133,6 +118,21 @@ todo css para a parte do carrinho
 }
 
 
+/* css da parte do carrinho */
+.item-no-carrinho {
+    display: flex;
+    justify-content: space-between; /* Alinha o nome à esquerda e o botão à direita */
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column; /* Coloca o nome em cima do preço */
+}
+
 .carrinho { 
     position: fixed; 
     right: 20px; 
@@ -143,8 +143,9 @@ todo css para a parte do carrinho
     border: 1px solid #ccc; 
 }
 
+
 /* Para telas com largura máxima de 768px (tablets e celulares) */
-@media (max-width: 1100px) {
+@media (max-width: 1210px) {
     
     main {
         /* Reduz o espaçamento lateral em telas menores */
