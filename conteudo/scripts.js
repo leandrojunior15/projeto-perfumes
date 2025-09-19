@@ -1,14 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
     carregarProdutos();
     configurarEventos();
+    filtrarProdutos('Todos');
 });
 
 
-function carregarProdutos() {
+function carregarProdutos(marcaFiltrada = 'Todos') {
     const listaProdutosDiv = document.getElementById('lista-produtos');
-    listaProdutosDiv.innerHTML = ''; // Limpa a lista antes de adicionar
+    listaProdutosDiv.innerHTML = '';
 
-    produtos.forEach(produto => {
+    // 1. Determina qual lista de produtos usar
+    const produtosParaExibir = marcaFiltrada === 'Todos' 
+        ? produtos 
+        : produtos.filter(produto => produto.marca === marcaFiltrada);
+
+    // 2. Renderiza os produtos da lista escolhida
+    produtosParaExibir.forEach(produto => {
         const card = document.createElement('div');
         card.className = 'produto-card';
         card.innerHTML = `
@@ -18,6 +25,23 @@ function carregarProdutos() {
             <button class="btn-adicionar" onclick="adicionarAoCarrinho(${produto.id})">Adicionar ao Carrinho</button>
         `;
         listaProdutosDiv.appendChild(card);
+    });
+}
+
+function filtrarProdutos(marca) {
+    // Atualiza a exibição dos produtos
+    carregarProdutos(marca);
+
+    // Atualiza o botão ativo
+    const botoes = document.querySelectorAll('.btn-filtro');
+    botoes.forEach(botao => {
+        // Remove a classe 'ativo' de todos os botões
+        botao.classList.remove('ativo');
+        
+        // Adiciona a classe 'ativo' apenas no botão clicado
+        if (botao.textContent === marca) {
+            botao.classList.add('ativo');
+        }
     });
 }
 
@@ -157,7 +181,7 @@ function enviarMensagemWhatsApp() {
     });
 
     mensagem += `\n*Total do Pedido: R$ ${totalPedido.toFixed(2)}*`;
-
+3
     // Codifica a mensagem para ser usada na URL
     const mensagemCodificada = encodeURIComponent(mensagem);
 
